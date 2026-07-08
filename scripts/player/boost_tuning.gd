@@ -1,6 +1,7 @@
 extends Resource
 class_name BoostTuning
 
+@export var profile_name := "Chase"
 @export var duration := 1.0
 @export var top_speed_units := 11.0
 @export var time_to_top_speed := 0.15

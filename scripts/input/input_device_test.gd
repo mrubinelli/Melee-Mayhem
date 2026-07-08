@@ -9,20 +9,11 @@ func _ready() -> void:
 	_update_controller_display()
 	debug_panel.set_last_input_source(_last_input_source)
 	debug_panel.set_base_speed(player.get_base_speed_units())
+	_update_player_debug_display()
 
 
 func _process(_delta: float) -> void:
-	debug_panel.set_left_stick(_get_left_stick_vector())
-	debug_panel.set_player_position(player.global_position)
-	debug_panel.set_player_bounds(player.get_clamped_player_bounds())
-	debug_panel.set_arena_bounds(player.get_arena_bounds())
-	debug_panel.set_clamp_active(player.is_clamp_active())
-	debug_panel.set_player_speed(player.get_speed_pixels(), player.get_speed_units())
-	debug_panel.set_boost_state(player.get_boost_state_name())
-	debug_panel.set_boost_time_remaining(player.get_boost_time_remaining())
-	debug_panel.set_cooldown_remaining(player.get_cooldown_remaining())
-	debug_panel.set_boost_distance(player.get_boost_distance_units())
-	debug_panel.set_expected_boost_distance(player.get_expected_boost_distance_units())
+	_update_player_debug_display()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -36,11 +27,31 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_debug"):
 		debug_panel.toggle_panel()
 		_trigger_feedback("toggle_debug pressed")
+	elif event.is_action_pressed("switch_archetype"):
+		player.switch_to_next_profile()
+		_update_player_debug_display()
+		_trigger_feedback("switch_archetype pressed")
 	elif event.is_action_pressed("boost"):
 		_trigger_feedback("boost pressed")
 	elif event.is_action_pressed("reset"):
 		player.reset_to_spawn()
+		_update_player_debug_display()
 		_trigger_feedback("reset pressed")
+
+
+func _update_player_debug_display() -> void:
+	debug_panel.set_left_stick(_get_left_stick_vector())
+	debug_panel.set_player_position(player.global_position)
+	debug_panel.set_player_bounds(player.get_clamped_player_bounds())
+	debug_panel.set_arena_bounds(player.get_arena_bounds())
+	debug_panel.set_clamp_active(player.is_clamp_active())
+	debug_panel.set_player_speed(player.get_speed_pixels(), player.get_speed_units())
+	_update_boost_tuning_display()
+	debug_panel.set_boost_state(player.get_boost_state_name())
+	debug_panel.set_boost_time_remaining(player.get_boost_time_remaining())
+	debug_panel.set_cooldown_remaining(player.get_cooldown_remaining())
+	debug_panel.set_boost_distance(player.get_boost_distance_units())
+	debug_panel.set_expected_boost_distance(player.get_expected_boost_distance_units())
 
 
 func _set_last_input_source(source: String) -> void:
@@ -52,6 +63,15 @@ func _set_last_input_source(source: String) -> void:
 
 func _trigger_feedback(message: String) -> void:
 	debug_panel.show_feedback(message)
+
+
+func _update_boost_tuning_display() -> void:
+	debug_panel.set_profile_name(player.get_profile_name())
+	debug_panel.set_boost_duration(player.get_boost_duration())
+	debug_panel.set_boost_top_speed(player.get_boost_top_speed_units())
+	debug_panel.set_boost_acceleration_time(player.get_boost_acceleration_time())
+	debug_panel.set_boost_cooldown(player.get_boost_cooldown())
+	debug_panel.set_boost_steering(player.get_boost_steering_strength())
 
 
 func _get_left_stick_vector() -> Vector2:

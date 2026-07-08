@@ -9,6 +9,12 @@ extends CanvasLayer
 @onready var clamp_label: Label = %ClampLabel
 @onready var speed_label: Label = %SpeedLabel
 @onready var base_speed_label: Label = %BaseSpeedLabel
+@onready var profile_label: Label = %ProfileLabel
+@onready var boost_duration_label: Label = %BoostDurationLabel
+@onready var boost_top_speed_label: Label = %BoostTopSpeedLabel
+@onready var boost_acceleration_label: Label = %BoostAccelerationLabel
+@onready var boost_cooldown_label: Label = %BoostCooldownLabel
+@onready var boost_steering_label: Label = %BoostSteeringLabel
 @onready var boost_state_label: Label = %BoostStateLabel
 @onready var boost_time_label: Label = %BoostTimeLabel
 @onready var cooldown_label: Label = %CooldownLabel
@@ -68,6 +74,30 @@ func set_player_speed(speed_pixels: float, speed_units: float) -> void:
 
 func set_base_speed(base_speed_units: float) -> void:
 	base_speed_label.text = "Base speed: %.2f u/s" % base_speed_units
+
+
+func set_profile_name(profile_name: String) -> void:
+	profile_label.text = "Profile: %s" % profile_name
+
+
+func set_boost_duration(duration: float) -> void:
+	boost_duration_label.text = "Boost duration: %.2f s" % duration
+
+
+func set_boost_top_speed(top_speed_units: float) -> void:
+	boost_top_speed_label.text = "Boost top speed: %.2f u/s" % top_speed_units
+
+
+func set_boost_acceleration_time(acceleration_time: float) -> void:
+	boost_acceleration_label.text = "Acceleration time: %.2f s" % acceleration_time
+
+
+func set_boost_cooldown(cooldown: float) -> void:
+	boost_cooldown_label.text = "Boost cooldown: %.2f s" % cooldown
+
+
+func set_boost_steering(steering_strength: float) -> void:
+	boost_steering_label.text = "Steering/handling: %.2f" % steering_strength
 
 
 func set_boost_state(state_name: String) -> void:

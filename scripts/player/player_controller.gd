@@ -16,6 +16,13 @@ const MIN_CENTER := (ARENA_SIZE_PIXELS * -0.5) + PLAYER_HALF_SIZE_PIXELS
 const MAX_CENTER := (ARENA_SIZE_PIXELS * 0.5) - PLAYER_HALF_SIZE_PIXELS
 const CLAMP_EPSILON_PIXELS := 1.0
 const INPUT_DEADZONE := 0.25
+const PROFILE_TUNING_PATHS: PackedStringArray = [
+	"res://resources/boost/chase_boost_tuning.tres",
+	"res://resources/boost/breaker_boost_tuning.tres",
+	"res://resources/boost/hurdler_boost_tuning.tres",
+	"res://resources/boost/hazardborn_boost_tuning.tres",
+	"res://resources/boost/tunneler_boost_tuning.tres",
+]
 
 @export var spawn_position := Vector2.ZERO
 @export var boost_tuning: BoostTuning
@@ -32,9 +39,11 @@ var _boost_elapsed := 0.0
 var _boost_time_remaining := 0.0
 var _cooldown_remaining := 0.0
 var _boost_distance_pixels := 0.0
+var _profile_index := 0
 
 
 func _ready() -> void:
+	_select_default_profile()
 	reset_to_spawn()
 
 
@@ -105,6 +114,33 @@ func get_base_speed_units() -> float:
 	return BASE_SPEED_UNITS
 
 
+func get_profile_name() -> String:
+	if boost_tuning == null:
+		return "None"
+
+	return boost_tuning.profile_name
+
+
+func get_boost_duration() -> float:
+	return boost_tuning.duration if boost_tuning != null else 0.0
+
+
+func get_boost_top_speed_units() -> float:
+	return boost_tuning.top_speed_units if boost_tuning != null else 0.0
+
+
+func get_boost_acceleration_time() -> float:
+	return boost_tuning.time_to_top_speed if boost_tuning != null else 0.0
+
+
+func get_boost_cooldown() -> float:
+	return boost_tuning.cooldown if boost_tuning != null else 0.0
+
+
+func get_boost_steering_strength() -> float:
+	return boost_tuning.steering_strength if boost_tuning != null else 0.0
+
+
 func get_player_size_pixels() -> Vector2:
 	return PLAYER_SIZE_PIXELS
 
@@ -161,6 +197,15 @@ func get_expected_boost_distance_units() -> float:
 	var acceleration_distance: float = ((BASE_SPEED_UNITS + ramp_end_speed) * 0.5) * ramp_time
 	var full_speed_distance: float = top_speed * maxf(duration - ramp_time, 0.0)
 	return acceleration_distance + full_speed_distance
+
+
+func switch_to_next_profile() -> void:
+	if PROFILE_TUNING_PATHS.is_empty():
+		return
+
+	_profile_index = wrapi(_profile_index + 1, 0, PROFILE_TUNING_PATHS.size())
+	_load_profile_tuning(_profile_index)
+	_clear_boost_for_profile_switch()
 
 
 func _get_movement_direction() -> Vector2:
@@ -288,3 +333,28 @@ func _clear_boost() -> void:
 	_boost_time_remaining = 0.0
 	_cooldown_remaining = 0.0
 	_boost_distance_pixels = 0.0
+
+
+func _clear_boost_for_profile_switch() -> void:
+	_boost_state = BoostState.READY
+	_boost_direction = _facing_direction.normalized() if not _facing_direction.is_zero_approx() else Vector2.RIGHT
+	_boost_elapsed = 0.0
+	_boost_time_remaining = 0.0
+	_cooldown_remaining = 0.0
+	_boost_distance_pixels = 0.0
+	_intended_velocity = Vector2.ZERO
+	velocity = Vector2.ZERO
+
+
+func _select_default_profile() -> void:
+	if PROFILE_TUNING_PATHS.is_empty():
+		return
+
+	_profile_index = 0
+	_load_profile_tuning(_profile_index)
+
+
+func _load_profile_tuning(profile_index: int) -> void:
+	var loaded_resource := load(PROFILE_TUNING_PATHS[profile_index])
+	if loaded_resource is BoostTuning:
+		boost_tuning = loaded_resource

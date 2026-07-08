@@ -29,7 +29,7 @@ script = ExtResource("2_debug")
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 520.0
-offset_bottom = 480.0
+offset_bottom = 620.0
 
 [node name="Margin" type="MarginContainer" parent="DebugPanel/Panel"]
 layout_mode = 2
@@ -90,6 +90,36 @@ text = "Current speed: 0.0 px/s (0.00 u/s)"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Base speed: 6.00 u/s"
+
+[node name="ProfileLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Profile: Chase"
+
+[node name="BoostDurationLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Boost duration: 0.90 s"
+
+[node name="BoostTopSpeedLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Boost top speed: 11.00 u/s"
+
+[node name="BoostAccelerationLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Acceleration time: 0.15 s"
+
+[node name="BoostCooldownLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Boost cooldown: 5.00 s"
+
+[node name="BoostSteeringLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Steering/handling: 1.00"
 
 [node name="BoostStateLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
 unique_name_in_owner = true
