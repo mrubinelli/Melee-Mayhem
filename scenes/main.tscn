@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/input/input_device_test.gd" id="1_input"]
+[ext_resource type="Script" path="res://scripts/ui/debug_panel.gd" id="2_debug"]
+[ext_resource type="PackedScene" path="res://scenes/arena.tscn" id="3_arena"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="4_player"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_input")
+
+[node name="Arena" parent="." instance=ExtResource("3_arena")]
+
+[node name="ActorsRoot" type="Node2D" parent="."]
+
+[node name="Player" parent="ActorsRoot" instance=ExtResource("4_player")]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 0)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = false
+enabled = true
+
+[node name="DebugPanel" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_debug")
+
+[node name="Panel" type="PanelContainer" parent="DebugPanel"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 520.0
+offset_bottom = 332.0
+
+[node name="Margin" type="MarginContainer" parent="DebugPanel/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Rows" type="VBoxContainer" parent="DebugPanel/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+layout_mode = 2
+text = "Stage 1 Movement Test"
+
+[node name="ControllerLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Controller: None"
+
+[node name="StickLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Left stick: (0.00, 0.00)"
+
+[node name="SourceLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Last input source: None"
+
+[node name="PositionLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player position: (0.0, 0.0) px"
+
+[node name="BoundsLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player bounds: L -30.0 R 30.0 T -30.0 B 30.0"
+
+[node name="ArenaBoundsLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Arena bounds: L -1200.0 R 1200.0 T -1200.0 B 1200.0"
+
+[node name="ClampLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clamp active: no"
+
+[node name="SpeedLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current speed: 0.0 px/s (0.00 u/s)"
+
+[node name="BaseSpeedLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Base speed: 6.00 u/s"
+
+[node name="FeedbackLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Feedback: waiting"

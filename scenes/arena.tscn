@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal_wall"]
+size = Vector2(2600, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical_wall"]
+size = Vector2(200, 2400)
+
+[node name="Arena" type="Node2D"]
+
+[node name="Floor" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-1200, -1200, 1200, -1200, 1200, 1200, -1200, 1200)
+color = Color(0.11, 0.12, 0.13, 1)
+
+[node name="ArenaOutline" type="Line2D" parent="."]
+points = PackedVector2Array(-1200, -1200, 1200, -1200, 1200, 1200, -1200, 1200, -1200, -1200)
+width = 8.0
+default_color = Color(0.75, 0.82, 0.9, 1)
+closed = true
+
+[node name="Bounds" type="Node2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="Bounds"]
+position = Vector2(0, -1300)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/TopWall"]
+shape = SubResource("RectangleShape2D_horizontal_wall")
+
+[node name="BottomWall" type="StaticBody2D" parent="Bounds"]
+position = Vector2(0, 1300)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/BottomWall"]
+shape = SubResource("RectangleShape2D_horizontal_wall")
+
+[node name="LeftWall" type="StaticBody2D" parent="Bounds"]
+position = Vector2(-1300, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/LeftWall"]
+shape = SubResource("RectangleShape2D_vertical_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="Bounds"]
+position = Vector2(1300, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/RightWall"]
+shape = SubResource("RectangleShape2D_vertical_wall")
+
+[node name="EnvironmentRoot" type="Node2D" parent="."]
