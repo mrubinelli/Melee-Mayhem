@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_player"]
+[ext_resource type="Resource" path="res://resources/boost/generic_boost_tuning.tres" id="2_boost_tuning"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(60, 60)
@@ -8,6 +9,7 @@ size = Vector2(60, 60)
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_player")
+boost_tuning = ExtResource("2_boost_tuning")
 
 [node name="Body" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)

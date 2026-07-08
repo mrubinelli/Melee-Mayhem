@@ -18,6 +18,11 @@ func _process(_delta: float) -> void:
 	debug_panel.set_arena_bounds(player.get_arena_bounds())
 	debug_panel.set_clamp_active(player.is_clamp_active())
 	debug_panel.set_player_speed(player.get_speed_pixels(), player.get_speed_units())
+	debug_panel.set_boost_state(player.get_boost_state_name())
+	debug_panel.set_boost_time_remaining(player.get_boost_time_remaining())
+	debug_panel.set_cooldown_remaining(player.get_cooldown_remaining())
+	debug_panel.set_boost_distance(player.get_boost_distance_units())
+	debug_panel.set_expected_boost_distance(player.get_expected_boost_distance_units())
 
 
 func _unhandled_input(event: InputEvent) -> void:

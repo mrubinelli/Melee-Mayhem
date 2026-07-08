@@ -218,6 +218,17 @@ A boost begins when:
 - The boost is not on cooldown
 - The player is not in an invalid movement state
 
+### Boost Direction
+
+Boost does not require active movement input.
+
+Boost direction is selected as follows:
+
+- If movement input is active when boost is pressed, boost uses the current movement input direction.
+- If no movement input is active, boost uses the current facing direction.
+- In the current 2D prototype, facing direction is represented by the last non-zero movement direction.
+- Later, in a third-person chase camera, this should map to the visible character facing or running direction.
+
 ### Boost End
 
 A boost ends when:
@@ -665,6 +676,30 @@ Debug visualization must include:
 - Hazard bounds
 - Tunnel routes
 - Breakable obstacle classification
+
+---
+
+## 10.1 Arena Boundary Containment
+
+Arena boundary containment is separate from gameplay collision detection.
+
+The current arena clamp is deterministic world boundary containment:
+
+- Player center X is clamped from `-1170` to `1170`.
+- Player center Y is clamped from `-1170` to `1170`.
+- Wall sliding along the outer arena boundary is accepted behavior for now.
+
+`Boundary blocked` in the debug HUD is an outer-arena containment/debug indicator only.
+
+It means:
+
+- `yes` when the player is at or near the outer arena boundary and intended movement or boost velocity is trying to push farther out.
+- `yes` when the arena boundary prevents movement into a prohibited area.
+- `no` otherwise.
+
+`Boundary blocked` is not general collision detection.
+
+Future collision systems for hard walls, low barriers, breakable barriers, hazards, tunnels, and player contact should remain separate from arena boundary containment.
 
 ---
 

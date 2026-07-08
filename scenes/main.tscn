@@ -17,7 +17,7 @@ unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 0)
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.28, 0.28)
 position_smoothing_enabled = false
 enabled = true
 
@@ -29,7 +29,7 @@ script = ExtResource("2_debug")
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 520.0
-offset_bottom = 332.0
+offset_bottom = 480.0
 
 [node name="Margin" type="MarginContainer" parent="DebugPanel/Panel"]
 layout_mode = 2
@@ -79,7 +79,7 @@ text = "Arena bounds: L -1200.0 R 1200.0 T -1200.0 B 1200.0"
 [node name="ClampLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Clamp active: no"
+text = "Boundary blocked: no"
 
 [node name="SpeedLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
 unique_name_in_owner = true
@@ -90,6 +90,31 @@ text = "Current speed: 0.0 px/s (0.00 u/s)"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Base speed: 6.00 u/s"
+
+[node name="BoostStateLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Boost state: ready"
+
+[node name="BoostTimeLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Boost remaining: 0.00 s"
+
+[node name="CooldownLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cooldown remaining: 0.00 s"
+
+[node name="BoostDistanceLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Boost distance: 0.00 u"
+
+[node name="ExpectedBoostDistanceLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Expected boost distance: 0.00 u"
 
 [node name="FeedbackLabel" type="Label" parent="DebugPanel/Panel/Margin/Rows"]
 unique_name_in_owner = true

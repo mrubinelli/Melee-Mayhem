@@ -9,6 +9,11 @@ extends CanvasLayer
 @onready var clamp_label: Label = %ClampLabel
 @onready var speed_label: Label = %SpeedLabel
 @onready var base_speed_label: Label = %BaseSpeedLabel
+@onready var boost_state_label: Label = %BoostStateLabel
+@onready var boost_time_label: Label = %BoostTimeLabel
+@onready var cooldown_label: Label = %CooldownLabel
+@onready var boost_distance_label: Label = %BoostDistanceLabel
+@onready var expected_boost_distance_label: Label = %ExpectedBoostDistanceLabel
 @onready var feedback_label: Label = %FeedbackLabel
 
 var _feedback_time := 0.0
@@ -54,7 +59,7 @@ func set_arena_bounds(arena_bounds: Rect2) -> void:
 
 
 func set_clamp_active(is_active: bool) -> void:
-	clamp_label.text = "Clamp active: %s" % ("yes" if is_active else "no")
+	clamp_label.text = "Boundary blocked: %s" % ("yes" if is_active else "no")
 
 
 func set_player_speed(speed_pixels: float, speed_units: float) -> void:
@@ -63,6 +68,26 @@ func set_player_speed(speed_pixels: float, speed_units: float) -> void:
 
 func set_base_speed(base_speed_units: float) -> void:
 	base_speed_label.text = "Base speed: %.2f u/s" % base_speed_units
+
+
+func set_boost_state(state_name: String) -> void:
+	boost_state_label.text = "Boost state: %s" % state_name
+
+
+func set_boost_time_remaining(time_remaining: float) -> void:
+	boost_time_label.text = "Boost remaining: %.2f s" % time_remaining
+
+
+func set_cooldown_remaining(time_remaining: float) -> void:
+	cooldown_label.text = "Cooldown remaining: %.2f s" % time_remaining
+
+
+func set_boost_distance(distance_units: float) -> void:
+	boost_distance_label.text = "Boost distance: %.2f u" % distance_units
+
+
+func set_expected_boost_distance(distance_units: float) -> void:
+	expected_boost_distance_label.text = "Expected boost distance: %.2f u" % distance_units
 
 
 func toggle_panel() -> void:
